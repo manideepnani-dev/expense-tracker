@@ -1,12 +1,14 @@
 # Expense Tracker
 
-A simple Expense Tracker web application built using React, Node.js, Express, and MongoDB.
+A full stack Expense Tracker web application built using React, Node.js, Express, and MongoDB.
 
 ## Features
 
 - View total balance, income, and expense
 - Add new transactions
 - Delete transactions
+- Filter transactions by all, income, and expense
+- Store transactions in MongoDB
 - Clean and responsive frontend UI
 
 ## Tech Stack
@@ -20,16 +22,15 @@ A simple Expense Tracker web application built using React, Node.js, Express, an
 
 ## Project Status
 
-Currently, the frontend UI is completed.  
-Backend and database integration will be added next.
+Frontend and backend integration is completed.  
+Transactions are being stored in MongoDB, and the app currently supports adding, deleting, and filtering transactions.
 
 ## Future Improvements
 
-- Connect frontend with backend API
-- Save transactions in MongoDB
 - Edit transactions
-- Filter income and expense
-- Improve UI and responsiveness
+- User authentication
+- Search and category filters
+- Better UI polish and responsiveness
 
 ## Author
 
