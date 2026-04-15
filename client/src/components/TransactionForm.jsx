@@ -1,11 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function TransactionForm({ onAdd }) {
+function TransactionForm({ onAdd, onUpdate, editData }) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("");
   const [date, setDate] = useState("");
+
+  useEffect(() => {
+    if (editData) {
+      setTitle(editData.title);
+      setAmount(editData.amount);
+      setType(editData.type);
+      setCategory(editData.category);
+      setDate(editData.date ? editData.date.split("T")[0] : "");
+    }
+  }, [editData]);
+
+  function clearForm() {
+    setTitle("");
+    setAmount("");
+    setType("expense");
+    setCategory("");
+    setDate("");
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -15,26 +33,26 @@ function TransactionForm({ onAdd }) {
       return;
     }
 
-    const newTransaction = {
-      title: title,
-      amount: Number(amount),
-      type: type,
-      category: category,
-      date: date,
+    const transactionData = {
+      title,
+      amount,
+      type,
+      category,
+      date,
     };
 
-    onAdd(newTransaction);
+    if (editData) {
+      onUpdate(editData._id, transactionData);
+    } else {
+      onAdd(transactionData);
+    }
 
-    setTitle("");
-    setAmount("");
-    setType("expense");
-    setCategory("");
-    setDate("");
+    clearForm();
   }
 
   return (
     <div className="form-box">
-      <h2>Add Transaction</h2>
+      <h2>{editData ? "Edit Transaction" : "Add Transaction"}</h2>
 
       <form onSubmit={handleSubmit} className="transaction-form">
         <input
@@ -69,7 +87,9 @@ function TransactionForm({ onAdd }) {
           onChange={(e) => setDate(e.target.value)}
         />
 
-        <button type="submit">Add Transaction</button>
+        <button type="submit">
+          {editData ? "Update Transaction" : "Add Transaction"}
+        </button>
       </form>
     </div>
   );
